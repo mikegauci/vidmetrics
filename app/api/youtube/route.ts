@@ -36,6 +36,15 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ channel, videos });
   } catch (error) {
     console.error("YouTube API error:", error);
+
+    const isQuota = error instanceof Error && error.message === "QUOTA_EXCEEDED";
+    if (isQuota) {
+      return NextResponse.json(
+        { error: "YouTube API daily quota reached. Please try again tomorrow." },
+        { status: 429 }
+      );
+    }
+
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Failed to fetch channel data" },
       { status: 500 }

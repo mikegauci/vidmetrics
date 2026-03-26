@@ -35,7 +35,10 @@ export async function fetchChannelData(identifier: string, apiKey: string): Prom
   }
 
   const res = await fetch(url);
-  if (!res.ok) throw new Error(`Channels API failed: ${res.status}`);
+  if (!res.ok) {
+    if (res.status === 403) throw new Error("QUOTA_EXCEEDED");
+    throw new Error(`Channels API failed: ${res.status}`);
+  }
   const data = await res.json();
 
   if (!data.items?.length) throw new Error("Channel not found");
@@ -74,7 +77,10 @@ export async function fetchChannelVideos(
   // Get video IDs via search
   const searchUrl = `${BASE}/search?part=id&channelId=${channelId}&order=date&type=video&maxResults=${maxResults}&key=${apiKey}`;
   const searchRes = await fetch(searchUrl);
-  if (!searchRes.ok) throw new Error(`Search API failed: ${searchRes.status}`);
+  if (!searchRes.ok) {
+    if (searchRes.status === 403) throw new Error("QUOTA_EXCEEDED");
+    throw new Error(`Search API failed: ${searchRes.status}`);
+  }
   const searchData = await searchRes.json();
 
   const videoIds = (searchData.items || [])
@@ -87,7 +93,10 @@ export async function fetchChannelVideos(
   // Get full video details
   const detailsUrl = `${BASE}/videos?part=snippet,statistics&id=${videoIds}&key=${apiKey}`;
   const detailsRes = await fetch(detailsUrl);
-  if (!detailsRes.ok) throw new Error(`Videos API failed: ${detailsRes.status}`);
+  if (!detailsRes.ok) {
+    if (detailsRes.status === 403) throw new Error("QUOTA_EXCEEDED");
+    throw new Error(`Videos API failed: ${detailsRes.status}`);
+  }
   const detailsData = await detailsRes.json();
 
   return (detailsData.items || []).map(

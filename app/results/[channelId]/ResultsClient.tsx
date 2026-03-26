@@ -76,7 +76,10 @@ export default function ResultsClient({ channelId }: ResultsClientProps) {
     setError(null);
     try {
       const res = await fetch(`/api/youtube?channelId=${encodeURIComponent(channelId)}`);
-      if (!res.ok) throw new Error("Failed to fetch channel data");
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.error ?? "Failed to fetch channel data");
+      }
       const json: AnalysisResponse = await res.json();
       setData(json);
     } catch (err) {
