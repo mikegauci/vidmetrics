@@ -32,7 +32,21 @@ Open [http://localhost:3000](http://localhost:3000).
 - Upload frequency line chart
 - CSV export of visible data
 - Skeleton loading states
+- Fully mobile responsive
 - Automatic mock data fallback for demo reliability
+
+## Development Approach
+
+**MVP first.** Started by building a minimal working version — a single page where you paste a YouTube channel URL and get back video stats. This validated the YouTube Data API integration early before adding any polish.
+
+**Incremental feature layering.** Each commit added one clear feature on top of the working base: sort/filter controls, Recharts visualizations, Supabase persistence, a sidebar for recent channels, and a command palette for quick search. This kept the app stable at every step.
+
+**AI-assisted workflow.** Used Cursor throughout development for scaffolding components, debugging API edge cases, iterating on the UI layout, and writing utility functions. AI helped speed up boilerplate-heavy work (table components, chart config, Supabase queries) so more time went into UX decisions.
+
+**Key decisions:**
+- **Supabase for persistence** — stores analyzed channel data so users can revisit past results without re-fetching.
+- **TTL caching** — added time-based caching to avoid burning YouTube API quota on repeated requests.
+- **Modular components** — each chart, table, and UI section is its own file, keeping the codebase navigable.
 
 ## Deploy
 
