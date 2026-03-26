@@ -5,7 +5,6 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  BarChart3,
   Search,
   ArrowRight,
   PanelLeftClose,
@@ -18,6 +17,7 @@ import {
   X,
   Trash2,
 } from "lucide-react";
+import Logo from "@/components/Logo";
 import { supabase } from "@/lib/supabase";
 import { parseChannelUrl, formatNumber } from "@/lib/utils";
 
@@ -87,8 +87,8 @@ export default function Sidebar() {
     <>
       {/* Logo */}
       <div className="flex items-center justify-between px-4 h-14 border-b border-border shrink-0">
-        <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <BarChart3 className="w-6 h-6 text-accent shrink-0" />
+        <Link href="/" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
+          <Logo className="w-6 h-6 text-accent shrink-0" />
           {showLabels && (
             <span className="text-lg font-bold text-text-primary tracking-tight">VidMetrics</span>
           )}

@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import ChannelInput from "@/components/ChannelInput";
 import RecentChannels from "@/components/RecentChannels";
-import { BarChart3 } from "lucide-react";
+import Logo from "@/components/Logo";
 
 export default function Home() {
   return (
@@ -9,8 +9,8 @@ export default function Home() {
       <Navbar />
       <main className="flex-1 flex flex-col items-center px-4 pt-32 pb-16">
         <div className="text-center">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <BarChart3 className="w-10 h-10 text-accent" />
+          <div className="flex items-center justify-center gap-1 mb-6">
+            <Logo className="w-14 h-14 text-accent" />
             <h1 className="text-4xl sm:text-5xl font-bold text-text-primary tracking-tight">
               VidMetrics
             </h1>

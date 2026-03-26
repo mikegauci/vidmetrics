@@ -15,11 +15,16 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Tech Stack
 
-- **Next.js 14** (App Router, TypeScript)
-- **Tailwind CSS** (dark theme)
-- **Recharts** (data visualization)
-- **YouTube Data API v3** (with automatic mock data fallback)
-- **Lucide React** (icons)
+- **Next.js 14** (App Router, TypeScript) — framework
+- **Tailwind CSS** — styling
+- **Recharts** — data visualization
+- **Supabase** — database for persisting channel data
+- **YouTube Data API v3** — data source
+- **Lucide React** — icons
+- **Prettier + ESLint** — code formatting and linting
+- **Claude** — used to generate a design prompt for Google Stitch, and a plan prompt for Cursor
+- **Google Stitch** — generated the initial UI mockup from Claude's prompt
+- **Cursor (AI IDE with Opus 4.6)** — built the project using Plan mode with the Claude-generated prompt, importing the Stitch design system via screenshots
 
 ## Features
 
@@ -33,7 +38,6 @@ Open [http://localhost:3000](http://localhost:3000).
 - CSV export of visible data
 - Skeleton loading states
 - Fully mobile responsive
-- Automatic mock data fallback for demo reliability
 
 ## Development Approach
 
