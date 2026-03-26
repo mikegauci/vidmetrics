@@ -51,7 +51,7 @@ export default function ChannelInput() {
       <button
         type="submit"
         disabled={loading}
-        className="mt-4 w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 bg-accent hover:bg-accent/90 disabled:opacity-60 text-white rounded-xl text-base font-semibold transition-all"
+        className="mt-4 w-full flex items-center justify-center gap-2 py-3.5 bg-accent hover:bg-accent/90 disabled:opacity-60 text-white rounded-xl text-base font-semibold transition-all"
       >
         {loading ? (
           <Loader2 className="w-5 h-5 animate-spin" />
