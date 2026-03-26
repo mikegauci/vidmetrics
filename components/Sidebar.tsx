@@ -16,6 +16,7 @@ import {
   Loader2,
   Menu,
   X,
+  Trash2,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { parseChannelUrl, formatNumber } from "@/lib/utils";
@@ -62,6 +63,17 @@ export default function Sidebar() {
     }
     fetchChannels();
   }, []);
+
+  async function handleDeleteChannel(e: React.MouseEvent, channelId: string) {
+    e.preventDefault();
+    e.stopPropagation();
+    const res = await fetch(`/api/channels/${encodeURIComponent(channelId)}`, {
+      method: "DELETE",
+    });
+    if (res.ok) {
+      setChannels((prev) => prev.filter((ch) => ch.id !== channelId));
+    }
+  }
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
@@ -158,31 +170,41 @@ export default function Sidebar() {
           )}
           <div className="space-y-1">
             {channels.map((ch) => (
-              <Link
-                key={ch.id}
-                href={`/results/${encodeURIComponent(ch.id)}`}
-                className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-white/5 transition-colors group"
-                title={ch.title}
-              >
-                <Image
-                  src={ch.thumbnail_url}
-                  alt={ch.title}
-                  width={24}
-                  height={24}
-                  className="rounded-full shrink-0"
-                  unoptimized
-                />
+              <div key={ch.id} className="group/item relative">
+                <Link
+                  href={`/results/${encodeURIComponent(ch.id)}`}
+                  className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-white/5 transition-colors"
+                  title={ch.title}
+                >
+                  <Image
+                    src={ch.thumbnail_url}
+                    alt={ch.title}
+                    width={24}
+                    height={24}
+                    className="rounded-full shrink-0"
+                    unoptimized
+                  />
+                  {showLabels && (
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm text-text-primary truncate group-hover/item:text-accent transition-colors">
+                        {ch.title}
+                      </p>
+                      <p className="text-[11px] text-text-secondary">
+                        {formatNumber(ch.subscriber_count)} subs
+                      </p>
+                    </div>
+                  )}
+                </Link>
                 {showLabels && (
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm text-text-primary truncate group-hover:text-accent transition-colors">
-                      {ch.title}
-                    </p>
-                    <p className="text-[11px] text-text-secondary">
-                      {formatNumber(ch.subscriber_count)} subs
-                    </p>
-                  </div>
+                  <button
+                    onClick={(e) => handleDeleteChannel(e, ch.id)}
+                    className="absolute right-1 top-1/2 -translate-y-1/2 p-1 rounded text-text-secondary/0 group-hover/item:text-text-secondary hover:!text-negative hover:bg-negative/10 transition-all"
+                    title="Remove"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
                 )}
-              </Link>
+              </div>
             ))}
             {channels.length === 0 && showLabels && (
               <p className="text-xs text-text-secondary/40 px-2">No recent channels</p>

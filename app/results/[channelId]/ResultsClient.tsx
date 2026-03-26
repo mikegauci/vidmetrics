@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import ChannelOverview from "@/components/ChannelOverview";
 import VideoFilters, { TimeRange, SortField, SortDirection } from "@/components/VideoFilters";
@@ -8,6 +9,7 @@ import VideoTable from "@/components/VideoTable";
 import TopVideosChart from "@/components/TopVideosChart";
 import UploadFrequencyChart from "@/components/UploadFrequencyChart";
 import ExportButton from "@/components/ExportButton";
+import DeleteAnalysisButton from "@/components/DeleteAnalysisButton";
 import SkeletonLoader from "@/components/SkeletonLoader";
 import ErrorCard from "@/components/ErrorCard";
 import { AnalysisResponse, VideoData } from "@/lib/types";
@@ -59,6 +61,7 @@ function sortVideos(videos: VideoData[], field: SortField, direction: SortDirect
 }
 
 export default function ResultsClient({ channelId }: ResultsClientProps) {
+  const router = useRouter();
   const [data, setData] = useState<AnalysisResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -152,7 +155,14 @@ export default function ResultsClient({ channelId }: ResultsClientProps) {
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
           />
-          <ExportButton videos={processedVideos} channelName={data.channel.title} />
+          <div className="flex items-center gap-2">
+            <ExportButton videos={processedVideos} channelName={data.channel.title} />
+            <DeleteAnalysisButton
+              channelId={data.channel.id}
+              channelName={data.channel.title}
+              onDeleted={() => router.push("/")}
+            />
+          </div>
         </div>
 
         <VideoTable

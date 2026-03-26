@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Users, Eye, ArrowRight } from "lucide-react";
+import { Users, Eye, ArrowRight, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { formatNumber } from "@/lib/utils";
 
@@ -37,6 +37,17 @@ export default function RecentChannels() {
     fetchChannels();
   }, []);
 
+  async function handleDelete(e: React.MouseEvent, channelId: string) {
+    e.preventDefault();
+    e.stopPropagation();
+    const res = await fetch(`/api/channels/${encodeURIComponent(channelId)}`, {
+      method: "DELETE",
+    });
+    if (res.ok) {
+      setChannels((prev) => prev.filter((ch) => ch.id !== channelId));
+    }
+  }
+
   if (loading || channels.length === 0) return null;
 
   return (
@@ -49,8 +60,16 @@ export default function RecentChannels() {
           <Link
             key={channel.id}
             href={`/results/${encodeURIComponent(channel.id)}`}
-            className="group bg-surface border border-border rounded-xl p-4 hover:border-accent/50 transition-all"
+            className="group relative bg-surface border border-border rounded-xl p-4 hover:border-accent/50 transition-all"
           >
+            <button
+              onClick={(e) => handleDelete(e, channel.id)}
+              className="absolute top-2 right-2 p-1.5 rounded-lg text-text-secondary/0 group-hover:text-text-secondary hover:!text-negative hover:bg-negative/10 transition-all"
+              title="Remove analysis"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+
             <div className="flex items-center gap-3 mb-3">
               <Image
                 src={channel.thumbnail_url}
