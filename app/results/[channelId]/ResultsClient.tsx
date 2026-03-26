@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import Navbar from "@/components/Navbar";
 import ChannelOverview from "@/components/ChannelOverview";
-import VideoFilters, { TimeRange, SortField } from "@/components/VideoFilters";
+import VideoFilters, { TimeRange, SortField, SortDirection } from "@/components/VideoFilters";
 import VideoTable from "@/components/VideoTable";
 import TopVideosChart from "@/components/TopVideosChart";
 import UploadFrequencyChart from "@/components/UploadFrequencyChart";
@@ -28,26 +28,32 @@ function filterByTime(videos: VideoData[], range: TimeRange): VideoData[] {
   return videos.filter((v) => new Date(v.publishedAt) >= cutoff);
 }
 
-function sortVideos(videos: VideoData[], field: SortField): VideoData[] {
+function sortVideos(videos: VideoData[], field: SortField, direction: SortDirection): VideoData[] {
   const sorted = [...videos];
+  const dir = direction === "asc" ? 1 : -1;
   sorted.sort((a, b) => {
+    let cmp = 0;
     switch (field) {
       case "views":
-        return b.viewCount - a.viewCount;
+        cmp = a.viewCount - b.viewCount;
+        break;
       case "likes":
-        return b.likeCount - a.likeCount;
+        cmp = a.likeCount - b.likeCount;
+        break;
       case "comments":
-        return b.commentCount - a.commentCount;
+        cmp = a.commentCount - b.commentCount;
+        break;
       case "engagement": {
         const eA = parseFloat(calcEngagement(a.viewCount, a.likeCount, a.commentCount));
         const eB = parseFloat(calcEngagement(b.viewCount, b.likeCount, b.commentCount));
-        return eB - eA;
+        cmp = eA - eB;
+        break;
       }
       case "date":
-        return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
-      default:
-        return 0;
+        cmp = new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime();
+        break;
     }
+    return cmp * dir;
   });
   return sorted;
 }
@@ -59,6 +65,7 @@ export default function ResultsClient({ channelId }: ResultsClientProps) {
 
   const [timeRange, setTimeRange] = useState<TimeRange>("all");
   const [sortField, setSortField] = useState<SortField>("views");
+  const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
   const [searchQuery, setSearchQuery] = useState("");
 
   const fetchData = useCallback(async () => {
@@ -94,10 +101,10 @@ export default function ResultsClient({ channelId }: ResultsClientProps) {
     }
 
     // Sort
-    vids = sortVideos(vids, sortField);
+    vids = sortVideos(vids, sortField, sortDirection);
 
     return vids;
-  }, [data, timeRange, searchQuery, sortField]);
+  }, [data, timeRange, searchQuery, sortField, sortDirection]);
 
   const topVideoIds = useMemo(() => {
     if (!data) return new Set<string>();
@@ -138,7 +145,10 @@ export default function ResultsClient({ channelId }: ResultsClientProps) {
             timeRange={timeRange}
             onTimeRangeChange={setTimeRange}
             sortField={sortField}
-            onSortChange={setSortField}
+            onSortChange={(field) => {
+              setSortField(field);
+              setSortDirection("desc");
+            }}
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
           />
@@ -148,7 +158,20 @@ export default function ResultsClient({ channelId }: ResultsClientProps) {
           />
         </div>
 
-        <VideoTable videos={processedVideos} topVideoIds={topVideoIds} />
+        <VideoTable
+          videos={processedVideos}
+          topVideoIds={topVideoIds}
+          sortField={sortField}
+          sortDirection={sortDirection}
+          onSort={(field) => {
+            if (field === sortField) {
+              setSortDirection((d) => (d === "desc" ? "asc" : "desc"));
+            } else {
+              setSortField(field);
+              setSortDirection("desc");
+            }
+          }}
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <TopVideosChart videos={processedVideos} />

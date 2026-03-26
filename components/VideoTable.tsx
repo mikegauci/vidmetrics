@@ -1,16 +1,48 @@
 "use client";
 
 import Image from "next/image";
-import { TrendingUp, TrendingDown, Trophy } from "lucide-react";
+import { TrendingUp, TrendingDown, Trophy, ChevronUp, ChevronDown } from "lucide-react";
 import { VideoData } from "@/lib/types";
+import { SortField, SortDirection } from "@/components/VideoFilters";
 import { formatNumber, formatDate, calcEngagement } from "@/lib/utils";
 
 interface VideoTableProps {
   videos: VideoData[];
   topVideoIds: Set<string>;
+  sortField: SortField;
+  sortDirection: SortDirection;
+  onSort: (field: SortField) => void;
 }
 
-export default function VideoTable({ videos, topVideoIds }: VideoTableProps) {
+const SORTABLE_COLUMNS: { key: SortField; label: string; align: "left" | "right" }[] = [
+  { key: "date", label: "Date", align: "left" },
+  { key: "views", label: "Views", align: "right" },
+  { key: "likes", label: "Likes", align: "right" },
+  { key: "comments", label: "Comments", align: "right" },
+  { key: "engagement", label: "Engagement", align: "right" },
+];
+
+function SortIcon({ field, sortField, sortDirection }: { field: SortField; sortField: SortField; sortDirection: SortDirection }) {
+  if (field !== sortField) {
+    return (
+      <span className="inline-flex flex-col ml-1 opacity-30">
+        <ChevronUp className="w-3 h-3 -mb-1" />
+        <ChevronDown className="w-3 h-3" />
+      </span>
+    );
+  }
+  return (
+    <span className="inline-flex ml-1 text-accent">
+      {sortDirection === "asc" ? (
+        <ChevronUp className="w-3.5 h-3.5" />
+      ) : (
+        <ChevronDown className="w-3.5 h-3.5" />
+      )}
+    </span>
+  );
+}
+
+export default function VideoTable({ videos, topVideoIds, sortField, sortDirection, onSort }: VideoTableProps) {
   if (videos.length === 0) {
     return (
       <div className="bg-surface border border-border rounded-xl p-12 text-center">
@@ -28,21 +60,20 @@ export default function VideoTable({ videos, topVideoIds }: VideoTableProps) {
               <th className="text-left text-xs font-medium text-text-secondary uppercase tracking-wider px-4 py-3">
                 Video
               </th>
-              <th className="text-left text-xs font-medium text-text-secondary uppercase tracking-wider px-4 py-3">
-                Date
-              </th>
-              <th className="text-right text-xs font-medium text-text-secondary uppercase tracking-wider px-4 py-3">
-                Views
-              </th>
-              <th className="text-right text-xs font-medium text-text-secondary uppercase tracking-wider px-4 py-3">
-                Likes
-              </th>
-              <th className="text-right text-xs font-medium text-text-secondary uppercase tracking-wider px-4 py-3">
-                Comments
-              </th>
-              <th className="text-right text-xs font-medium text-text-secondary uppercase tracking-wider px-4 py-3">
-                Engagement
-              </th>
+              {SORTABLE_COLUMNS.map((col) => (
+                <th
+                  key={col.key}
+                  onClick={() => onSort(col.key)}
+                  className={`text-xs font-medium text-text-secondary uppercase tracking-wider px-4 py-3 cursor-pointer select-none hover:text-text-primary transition-colors ${
+                    col.align === "right" ? "text-right" : "text-left"
+                  }`}
+                >
+                  <span className={`inline-flex items-center ${col.align === "right" ? "justify-end" : ""}`}>
+                    {col.label}
+                    <SortIcon field={col.key} sortField={sortField} sortDirection={sortDirection} />
+                  </span>
+                </th>
+              ))}
               <th className="text-center text-xs font-medium text-text-secondary uppercase tracking-wider px-4 py-3">
                 Trend
               </th>

@@ -9,6 +9,7 @@ export type SortField =
   | "comments"
   | "engagement"
   | "date";
+export type SortDirection = "asc" | "desc";
 
 interface VideoFiltersProps {
   timeRange: TimeRange;
