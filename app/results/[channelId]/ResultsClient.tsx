@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useCallback } from "react";
-import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
 import ChannelOverview from "@/components/ChannelOverview";
 import VideoFilters, { TimeRange, SortField, SortDirection } from "@/components/VideoFilters";
 import VideoTable from "@/components/VideoTable";
@@ -114,9 +114,9 @@ export default function ResultsClient({ channelId }: ResultsClientProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen">
-        <Navbar />
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="min-h-screen flex">
+        <Sidebar />
+        <main className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 pt-16 pb-8 md:py-8">
           <SkeletonLoader />
         </main>
       </div>
@@ -125,9 +125,9 @@ export default function ResultsClient({ channelId }: ResultsClientProps) {
 
   if (error || !data) {
     return (
-      <div className="min-h-screen">
-        <Navbar />
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="min-h-screen flex">
+        <Sidebar />
+        <main className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 pt-16 pb-8 md:py-8">
           <ErrorCard message={error ?? "No data available"} onRetry={fetchData} />
         </main>
       </div>
@@ -135,9 +135,9 @@ export default function ResultsClient({ channelId }: ResultsClientProps) {
   }
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="min-h-screen flex">
+      <Sidebar />
+      <main className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 pt-16 pb-8 md:py-8 space-y-8">
         <ChannelOverview channel={data.channel} videos={data.videos} />
 
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">

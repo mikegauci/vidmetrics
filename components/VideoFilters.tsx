@@ -43,14 +43,14 @@ export default function VideoFilters({
   onSearchChange,
 }: VideoFiltersProps) {
   return (
-    <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+    <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto items-stretch sm:items-center">
       {/* Time range tabs */}
       <div className="flex rounded-lg border border-border overflow-hidden">
         {TIME_TABS.map((tab) => (
           <button
             key={tab.value}
             onClick={() => onTimeRangeChange(tab.value)}
-            className={`px-3 py-2 text-sm font-medium transition-colors ${
+            className={`flex-1 sm:flex-none px-3 py-2 text-sm font-medium transition-colors ${
               timeRange === tab.value
                 ? "bg-accent text-white"
                 : "bg-surface text-text-secondary hover:text-text-primary"
@@ -65,7 +65,7 @@ export default function VideoFilters({
       <select
         value={sortField}
         onChange={(e) => onSortChange(e.target.value as SortField)}
-        className="px-3 py-2 bg-surface border border-border rounded-lg text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-accent/50"
+        className="w-full sm:w-auto px-3 py-2 bg-surface border border-border rounded-lg text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-accent/50"
       >
         {SORT_OPTIONS.map((opt) => (
           <option key={opt.value} value={opt.value}>
@@ -75,7 +75,7 @@ export default function VideoFilters({
       </select>
 
       {/* Search */}
-      <div className="relative flex-1 max-w-xs w-full">
+      <div className="relative flex-1 sm:max-w-xs w-full">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary pointer-events-none" />
         <input
           type="text"

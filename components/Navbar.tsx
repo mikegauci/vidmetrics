@@ -14,14 +14,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <div className="flex items-center gap-4">
-          <Link
-            href="/"
-            className="text-sm text-text-secondary hover:text-text-primary transition-colors"
-          >
-            Analyze
-          </Link>
-        </div>
+        <div className="flex items-center gap-4" />
       </div>
     </nav>
   );

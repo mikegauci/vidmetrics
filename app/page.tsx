@@ -1,13 +1,14 @@
 import Navbar from "@/components/Navbar";
 import ChannelInput from "@/components/ChannelInput";
+import RecentChannels from "@/components/RecentChannels";
 import { BarChart3 } from "lucide-react";
 
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1 flex items-center justify-center px-4">
-        <div className="text-center -mt-20">
+      <main className="flex-1 flex flex-col items-center px-4 pt-32 pb-16">
+        <div className="text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
             <BarChart3 className="w-10 h-10 text-accent" />
             <h1 className="text-4xl sm:text-5xl font-bold text-text-primary tracking-tight">
@@ -22,6 +23,7 @@ export default function Home() {
             Works with any public YouTube channel URL or @handle
           </p>
         </div>
+        <RecentChannels />
       </main>
     </div>
   );

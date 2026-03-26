@@ -57,7 +57,7 @@ export default function VideoTable({ videos, topVideoIds, sortField, sortDirecti
         <table className="w-full min-w-[800px]">
           <thead>
             <tr className="border-b border-border">
-              <th className="text-left text-xs font-medium text-text-secondary uppercase tracking-wider px-4 py-3">
+              <th className="text-left text-xs font-medium text-text-secondary uppercase tracking-wider px-4 py-3 min-w-[300px]">
                 Video
               </th>
               {SORTABLE_COLUMNS.map((col) => (

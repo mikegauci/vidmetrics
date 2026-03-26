@@ -47,7 +47,7 @@ export default function ExportButton({
   return (
     <button
       onClick={handleExport}
-      className="inline-flex items-center gap-2 px-4 py-2 bg-surface border border-border hover:border-text-secondary/50 rounded-lg text-sm font-medium text-text-primary transition-colors"
+      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 bg-surface border border-border hover:border-text-secondary/50 rounded-lg text-sm font-medium text-text-primary transition-colors"
     >
       <Download className="w-4 h-4" />
       Export CSV
