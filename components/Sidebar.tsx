@@ -29,7 +29,7 @@ interface SavedChannel {
 }
 
 export default function Sidebar() {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [url, setUrl] = useState("");
   const [searchError, setSearchError] = useState("");
@@ -38,19 +38,9 @@ export default function Sidebar() {
   const router = useRouter();
   const pathname = usePathname();
 
-  // Close mobile drawer on navigation
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("sidebar-collapsed");
-    if (stored === "true") setCollapsed(true);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("sidebar-collapsed", String(collapsed));
-  }, [collapsed]);
 
   useEffect(() => {
     async function fetchChannels() {
