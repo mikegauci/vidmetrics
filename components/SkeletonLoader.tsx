@@ -1,10 +1,5 @@
 function Pulse({ className, style }: { className?: string; style?: React.CSSProperties }) {
-  return (
-    <div
-      className={`animate-pulse rounded-lg bg-surface ${className ?? ""}`}
-      style={style}
-    />
-  );
+  return <div className={`animate-pulse rounded-lg bg-surface ${className ?? ""}`} style={style} />;
 }
 
 export function StatCardSkeleton() {

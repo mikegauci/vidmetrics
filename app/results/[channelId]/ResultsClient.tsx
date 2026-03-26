@@ -152,10 +152,7 @@ export default function ResultsClient({ channelId }: ResultsClientProps) {
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
           />
-          <ExportButton
-            videos={processedVideos}
-            channelName={data.channel.title}
-          />
+          <ExportButton videos={processedVideos} channelName={data.channel.title} />
         </div>
 
         <VideoTable

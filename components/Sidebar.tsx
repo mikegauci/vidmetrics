@@ -85,15 +85,10 @@ export default function Sidebar() {
     <>
       {/* Logo */}
       <div className="flex items-center justify-between px-4 h-14 border-b border-border shrink-0">
-        <Link
-          href="/"
-          className="flex items-center gap-2 hover:opacity-80 transition-opacity"
-        >
+        <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
           <BarChart3 className="w-6 h-6 text-accent shrink-0" />
           {showLabels && (
-            <span className="text-lg font-bold text-text-primary tracking-tight">
-              VidMetrics
-            </span>
+            <span className="text-lg font-bold text-text-primary tracking-tight">VidMetrics</span>
           )}
         </Link>
         {/* Mobile close button */}
@@ -137,9 +132,7 @@ export default function Sidebar() {
                   )}
                 </button>
               </div>
-              {searchError && (
-                <p className="mt-1 text-xs text-negative px-1">{searchError}</p>
-              )}
+              {searchError && <p className="mt-1 text-xs text-negative px-1">{searchError}</p>}
               <p className="mt-2 flex items-center gap-1 text-[11px] text-text-secondary/40 px-1">
                 <Command className="w-3 h-3" />
                 <span>K to quick search</span>
@@ -192,9 +185,7 @@ export default function Sidebar() {
               </Link>
             ))}
             {channels.length === 0 && showLabels && (
-              <p className="text-xs text-text-secondary/40 px-2">
-                No recent channels
-              </p>
+              <p className="text-xs text-text-secondary/40 px-2">No recent channels</p>
             )}
           </div>
         </div>
@@ -214,9 +205,7 @@ export default function Sidebar() {
               title="Compare Channels"
             >
               <GitCompareArrows className="w-5 h-5 text-text-secondary shrink-0" />
-              {showLabels && (
-                <span className="text-sm text-text-secondary">Compare</span>
-              )}
+              {showLabels && <span className="text-sm text-text-secondary">Compare</span>}
             </div>
             <div
               className={`flex items-center gap-2.5 px-2 py-1.5 rounded-lg opacity-40 cursor-default ${
@@ -225,9 +214,7 @@ export default function Sidebar() {
               title="Bookmarks"
             >
               <Bookmark className="w-5 h-5 text-text-secondary shrink-0" />
-              {showLabels && (
-                <span className="text-sm text-text-secondary">Bookmarks</span>
-              )}
+              {showLabels && <span className="text-sm text-text-secondary">Bookmarks</span>}
             </div>
           </div>
         </div>

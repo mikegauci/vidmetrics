@@ -46,9 +46,7 @@ export default function ChannelInput() {
         />
       </div>
 
-      {error && (
-        <p className="mt-2 text-sm text-negative pl-1">{error}</p>
-      )}
+      {error && <p className="mt-2 text-sm text-negative pl-1">{error}</p>}
 
       <button
         type="submit"

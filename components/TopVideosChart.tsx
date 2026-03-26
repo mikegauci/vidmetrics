@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { VideoData } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
 
@@ -27,9 +19,7 @@ export default function TopVideosChart({ videos }: TopVideosChartProps) {
 
   return (
     <div className="bg-surface border border-border rounded-xl p-6">
-      <h3 className="text-sm font-semibold text-text-primary mb-6">
-        Top 10 Videos by Views
-      </h3>
+      <h3 className="text-sm font-semibold text-text-primary mb-6">Top 10 Videos by Views</h3>
       <ResponsiveContainer width="100%" height={320}>
         <BarChart data={data} layout="vertical" margin={{ left: 0, right: 20 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#334155" horizontal={false} />

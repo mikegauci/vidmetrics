@@ -81,10 +81,7 @@ export default function CommandPalette() {
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[20vh]">
       {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        onClick={close}
-      />
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={close} />
 
       {/* Panel */}
       <div className="relative w-full max-w-lg mx-4 bg-surface border border-border rounded-2xl shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-4 duration-200">
@@ -128,11 +125,7 @@ export default function CommandPalette() {
           )}
         </form>
 
-        {error && (
-          <p className="px-4 py-2 text-sm text-negative border-b border-border">
-            {error}
-          </p>
-        )}
+        {error && <p className="px-4 py-2 text-sm text-negative border-b border-border">{error}</p>}
 
         {channels.length > 0 && (
           <div className="py-2">
@@ -154,9 +147,7 @@ export default function CommandPalette() {
                   unoptimized
                 />
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm text-text-primary truncate">
-                    {ch.title}
-                  </p>
+                  <p className="text-sm text-text-primary truncate">{ch.title}</p>
                   <p className="text-[11px] text-text-secondary">
                     {formatNumber(ch.subscriber_count)} subscribers
                   </p>

@@ -15,9 +15,7 @@ interface UploadFrequencyChartProps {
   videos: VideoData[];
 }
 
-export default function UploadFrequencyChart({
-  videos,
-}: UploadFrequencyChartProps) {
+export default function UploadFrequencyChart({ videos }: UploadFrequencyChartProps) {
   // Group uploads by month
   const monthCounts = new Map<string, number>();
 
@@ -31,18 +29,16 @@ export default function UploadFrequencyChart({
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([month, count]) => {
       const [y, m] = month.split("-");
-      const label = new Date(parseInt(y), parseInt(m) - 1).toLocaleDateString(
-        "en-US",
-        { month: "short", year: "2-digit" }
-      );
+      const label = new Date(parseInt(y), parseInt(m) - 1).toLocaleDateString("en-US", {
+        month: "short",
+        year: "2-digit",
+      });
       return { month: label, uploads: count };
     });
 
   return (
     <div className="bg-surface border border-border rounded-xl p-6">
-      <h3 className="text-sm font-semibold text-text-primary mb-6">
-        Upload Frequency Over Time
-      </h3>
+      <h3 className="text-sm font-semibold text-text-primary mb-6">Upload Frequency Over Time</h3>
       <ResponsiveContainer width="100%" height={320}>
         <AreaChart data={data} margin={{ left: 0, right: 20 }}>
           <defs>

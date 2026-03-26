@@ -13,13 +13,9 @@ export function formatDate(iso: string): string {
   });
 }
 
-export function calcEngagement(
-  views: number,
-  likes: number,
-  comments: number
-): string {
+export function calcEngagement(views: number, likes: number, comments: number): string {
   if (views === 0) return "0.00";
-  return ((likes + comments) / views * 100).toFixed(2);
+  return (((likes + comments) / views) * 100).toFixed(2);
 }
 
 export function parseChannelUrl(url: string): string | null {
@@ -32,14 +28,9 @@ export function parseChannelUrl(url: string): string | null {
     // Handle @handle without URL
     if (/^@[\w.-]+$/.test(cleaned)) return cleaned;
 
-    const parsed = new URL(
-      cleaned.startsWith("http") ? cleaned : `https://${cleaned}`
-    );
+    const parsed = new URL(cleaned.startsWith("http") ? cleaned : `https://${cleaned}`);
 
-    if (
-      !parsed.hostname.includes("youtube.com") &&
-      !parsed.hostname.includes("youtu.be")
-    ) {
+    if (!parsed.hostname.includes("youtube.com") && !parsed.hostname.includes("youtu.be")) {
       return null;
     }
 

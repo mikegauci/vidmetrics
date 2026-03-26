@@ -2,10 +2,7 @@ import { ChannelData, VideoData } from "./types";
 
 const BASE = "https://www.googleapis.com/youtube/v3";
 
-export async function fetchChannelData(
-  identifier: string,
-  apiKey: string
-): Promise<ChannelData> {
+export async function fetchChannelData(identifier: string, apiKey: string): Promise<ChannelData> {
   let url: string;
 
   if (identifier.startsWith("UC")) {
@@ -109,10 +106,7 @@ export async function fetchChannelVideos(
     }) => ({
       id: v.id,
       title: v.snippet.title,
-      thumbnailUrl:
-        v.snippet.thumbnails.medium?.url ??
-        v.snippet.thumbnails.default?.url ??
-        "",
+      thumbnailUrl: v.snippet.thumbnails.medium?.url ?? v.snippet.thumbnails.default?.url ?? "",
       publishedAt: v.snippet.publishedAt,
       viewCount: parseInt(v.statistics.viewCount ?? "0", 10),
       likeCount: parseInt(v.statistics.likeCount ?? "0", 10),

@@ -30,10 +30,7 @@ function StatCard({
   );
 }
 
-export default function ChannelOverview({
-  channel,
-  videos,
-}: ChannelOverviewProps) {
+export default function ChannelOverview({ channel, videos }: ChannelOverviewProps) {
   const avgEngagement =
     videos.length > 0
       ? (
@@ -57,37 +54,17 @@ export default function ChannelOverview({
           unoptimized
         />
         <div>
-          <h1 className="text-xl font-bold text-text-primary">
-            {channel.title}
-          </h1>
-          <p className="text-sm text-text-secondary line-clamp-1">
-            {channel.description}
-          </p>
+          <h1 className="text-xl font-bold text-text-primary">{channel.title}</h1>
+          <p className="text-sm text-text-secondary line-clamp-1">{channel.description}</p>
         </div>
       </div>
 
       {/* Stat cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard
-          label="Subscribers"
-          value={formatNumber(channel.subscriberCount)}
-          icon={Users}
-        />
-        <StatCard
-          label="Total Views"
-          value={formatNumber(channel.viewCount)}
-          icon={Eye}
-        />
-        <StatCard
-          label="Videos"
-          value={formatNumber(channel.videoCount)}
-          icon={Film}
-        />
-        <StatCard
-          label="Avg Engagement"
-          value={`${avgEngagement}%`}
-          icon={TrendingUp}
-        />
+        <StatCard label="Subscribers" value={formatNumber(channel.subscriberCount)} icon={Users} />
+        <StatCard label="Total Views" value={formatNumber(channel.viewCount)} icon={Eye} />
+        <StatCard label="Videos" value={formatNumber(channel.videoCount)} icon={Film} />
+        <StatCard label="Avg Engagement" value={`${avgEngagement}%`} icon={TrendingUp} />
       </div>
     </div>
   );

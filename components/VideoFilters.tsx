@@ -3,12 +3,7 @@
 import { Search } from "lucide-react";
 
 export type TimeRange = "month" | "3months" | "all";
-export type SortField =
-  | "views"
-  | "likes"
-  | "comments"
-  | "engagement"
-  | "date";
+export type SortField = "views" | "likes" | "comments" | "engagement" | "date";
 export type SortDirection = "asc" | "desc";
 
 interface VideoFiltersProps {

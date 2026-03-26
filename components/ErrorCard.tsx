@@ -17,9 +17,7 @@ export default function ErrorCard({
         <div className="w-12 h-12 rounded-full bg-negative/10 flex items-center justify-center mx-auto mb-4">
           <AlertTriangle className="w-6 h-6 text-negative" />
         </div>
-        <h2 className="text-lg font-semibold text-text-primary mb-2">
-          Analysis Failed
-        </h2>
+        <h2 className="text-lg font-semibold text-text-primary mb-2">Analysis Failed</h2>
         <p className="text-sm text-text-secondary mb-6">{message}</p>
         {onRetry && (
           <button

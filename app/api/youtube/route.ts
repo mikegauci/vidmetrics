@@ -6,19 +6,13 @@ export async function GET(request: NextRequest) {
   const channelId = request.nextUrl.searchParams.get("channelId");
 
   if (!channelId) {
-    return NextResponse.json(
-      { error: "channelId query parameter is required" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "channelId query parameter is required" }, { status: 400 });
   }
 
   const apiKey = process.env.YOUTUBE_API_KEY;
 
   if (!apiKey) {
-    return NextResponse.json(
-      { error: "YouTube API key is not configured" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "YouTube API key is not configured" }, { status: 500 });
   }
 
   try {

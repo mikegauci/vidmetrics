@@ -61,12 +61,8 @@ export default function RecentChannels() {
                 unoptimized
               />
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-semibold text-text-primary truncate">
-                  {channel.title}
-                </p>
-                <p className="text-xs text-text-secondary truncate">
-                  {channel.description}
-                </p>
+                <p className="text-sm font-semibold text-text-primary truncate">{channel.title}</p>
+                <p className="text-xs text-text-secondary truncate">{channel.description}</p>
               </div>
             </div>
 

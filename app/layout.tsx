@@ -10,8 +10,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "VidMetrics — YouTube Competitor Analyzer",
-  description:
-    "Analyze any YouTube channel's top-performing videos instantly.",
+  description: "Analyze any YouTube channel's top-performing videos instantly.",
 };
 
 export default function RootLayout({

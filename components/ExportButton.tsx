@@ -9,10 +9,7 @@ interface ExportButtonProps {
   channelName: string;
 }
 
-export default function ExportButton({
-  videos,
-  channelName,
-}: ExportButtonProps) {
+export default function ExportButton({ videos, channelName }: ExportButtonProps) {
   function handleExport() {
     const headers = [
       "Title",

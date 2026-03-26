@@ -22,7 +22,15 @@ const SORTABLE_COLUMNS: { key: SortField; label: string; align: "left" | "right"
   { key: "engagement", label: "Engagement", align: "right" },
 ];
 
-function SortIcon({ field, sortField, sortDirection }: { field: SortField; sortField: SortField; sortDirection: SortDirection }) {
+function SortIcon({
+  field,
+  sortField,
+  sortDirection,
+}: {
+  field: SortField;
+  sortField: SortField;
+  sortDirection: SortDirection;
+}) {
   if (field !== sortField) {
     return (
       <span className="inline-flex flex-col ml-1 opacity-30">
@@ -42,7 +50,13 @@ function SortIcon({ field, sortField, sortDirection }: { field: SortField; sortF
   );
 }
 
-export default function VideoTable({ videos, topVideoIds, sortField, sortDirection, onSort }: VideoTableProps) {
+export default function VideoTable({
+  videos,
+  topVideoIds,
+  sortField,
+  sortDirection,
+  onSort,
+}: VideoTableProps) {
   if (videos.length === 0) {
     return (
       <div className="bg-surface border border-border rounded-xl p-12 text-center">
@@ -68,7 +82,9 @@ export default function VideoTable({ videos, topVideoIds, sortField, sortDirecti
                     col.align === "right" ? "text-right" : "text-left"
                   }`}
                 >
-                  <span className={`inline-flex items-center ${col.align === "right" ? "justify-end" : ""}`}>
+                  <span
+                    className={`inline-flex items-center ${col.align === "right" ? "justify-end" : ""}`}
+                  >
                     {col.label}
                     <SortIcon field={col.key} sortField={sortField} sortDirection={sortDirection} />
                   </span>
@@ -85,8 +101,7 @@ export default function VideoTable({ videos, topVideoIds, sortField, sortDirecti
                 calcEngagement(video.viewCount, video.likeCount, video.commentCount)
               );
               const isTop = topVideoIds.has(video.id);
-              const avgViews =
-                videos.reduce((s, v) => s + v.viewCount, 0) / videos.length;
+              const avgViews = videos.reduce((s, v) => s + v.viewCount, 0) / videos.length;
               const trendUp = video.viewCount >= avgViews;
 
               return (
