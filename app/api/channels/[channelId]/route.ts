@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 
-export async function DELETE(
-  _request: NextRequest,
-  { params }: { params: { channelId: string } }
-) {
+export async function DELETE(_request: NextRequest, { params }: { params: { channelId: string } }) {
   const { channelId } = params;
 
   if (!channelId) {
